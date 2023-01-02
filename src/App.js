@@ -1,10 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
+import Appbar from './components/Appbar';
+import Student from './components/Student';
 
 function App() {
   return (
     <div className="App">
-      My Name is Sushmita....
+      <Appbar/>
+      <Student/>
     </div>
   );
 }
