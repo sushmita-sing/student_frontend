@@ -62,8 +62,8 @@ useEffect(()=>{
         <Paper elevation={3} style={paperStyle}>
             {students.map(student=>(
                 <Paper elevation={6} style={{margin:"10px",padding:"15px",textAlign:"left"}} key={student.id}>
-                        ID:{student.id}
-                        NAme:{student.name}
+                        ID:{student.id}<br/>
+                        NAme:{student.name}<br/>
                         Address:{student.address}
                 </Paper>
             ))}
