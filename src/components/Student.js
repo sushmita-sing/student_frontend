@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect,useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Container, Paper, Button  } from '@material-ui/core';
@@ -17,6 +17,7 @@ export default function Student() {
     const classes = useStyles(); 
     const[name,setName]=useState('')
     const[address,setAddress]=useState('')
+    const[students,setStudents]=useState([])
 
     const handleClick=(e)=>{
         e.preventDefault()
@@ -31,6 +32,14 @@ export default function Student() {
         })
     }
 
+useEffect(()=>{
+    fetch("http://localhost:8080/get")
+    .then(res=>res.json())
+    .then((result)=>{
+        setStudents(result);
+    })
+})
+
   return (
     <Container>
         <Paper elevation={3} style={paperStyle}>
@@ -44,11 +53,21 @@ export default function Student() {
                 value={address}
                 onChange={(e)=>setAddress(e.target.value)}
             />
-            <Button variant="contained" color="secondary" onClick={handleClick}>SUBMIT </Button>
-        </form>
-        {name}
-        { address}
+            <Button variant="contained" color="secondary" onClick={handleClick}>
+                SUBMIT 
+            </Button>
+        </form>        
         </Paper>
-    </Container>
+        <h1>Students</h1>
+        <Paper elevation={3} style={paperStyle}>
+            {students.map(student=>(
+                <Paper elevation={6} style={{margin:"10px",padding:"15px",textAlign:"left"}} key={student.id}>
+                        ID:{student.id}
+                        NAme:{student.name}
+                        Address:{student.address}
+                </Paper>
+            ))}
+        </Paper>
+    </Container>  
   );
 }
